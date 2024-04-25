@@ -6,7 +6,7 @@ public enum Therac {
 
 	private Therac() {
 		shielded = true;
-		monitored = true;
+		monitored = true; // observer gets hooked up to monitored boolean
 	}
 
 	public static Therac getInstance() {
@@ -24,6 +24,8 @@ public enum Therac {
 	public void fireLowBeam() {
 		if (!isShielded() && isMonitored()) {
 			System.out.println("Firing the low intensity beam");
+		} else if (!isShielded() && !isMonitored()) {
+			System.out.println("Can't fire the low intensity beam when the patient is not monitored");
 		} else {
 			System.out.println("Can't fire the low intensity beam when the shield is up");
 		}
@@ -32,6 +34,8 @@ public enum Therac {
 	public void fireHighBeam() {
 		if (isShielded() && isMonitored()) {
 			System.out.println("Firing the high intensity beam");
+		}  else if (isShielded() && !isMonitored()) {
+			System.out.println("Can't fire the high intensity beam when the patient is not monitored");
 		} else {
 			System.out.println("Can't fire the high intensity beam when the shield is down");
 		}
