@@ -1,4 +1,4 @@
-public class TheracController {
+public class TheracTestEnvironment {
 	public static void main(String args[]) {
 		// example of a proper procedure
 		Therac therac = Therac.getInstance();
