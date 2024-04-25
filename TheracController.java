@@ -1,6 +1,6 @@
 public class TheracController {
 	public static void main(String args[]) {
-		// example of procedure
+		// example of a proper procedure
 		Therac therac = Therac.getInstance();
 		therac.lowerShield(); // lower shield for low beam
 		therac.fireLowBeam(); // fire low beam to scan for cancer
@@ -12,6 +12,6 @@ public class TheracController {
 		Therac therac2 = Therac.getInstance();
 		therac.lowerShield(); // lower shield 
 		therac.fireHighBeam(); // fire the high beam without raising the shield
-		
+
 	}
 }
