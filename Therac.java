@@ -1,4 +1,6 @@
-public enum Therac {
+import java.io.Serializable;
+
+public enum Therac implements Serializable {
 	UNIQUE_INSTANCE;
 
 	private boolean shielded;
