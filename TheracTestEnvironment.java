@@ -26,9 +26,20 @@ public class TheracTestEnvironment {
 		System.out.println("Welcome to the Therac-25 test environment");
 		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n ________________________________");
 
-		// Process command line arguments
 		for (String command : args) {
-			switch (command) {
+            // Deserialize the Therac instance from the file if it exists
+            if (file.exists()) {
+                try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+                    therac = (Therac) in.readObject();
+                } catch (IOException | ClassNotFoundException e) {
+                    e.printStackTrace();
+                    return;
+                }
+            } else {
+                therac = Therac.getInstance();
+            }
+
+            switch (command) {
 				case "lowerShield":
 					therac.lowerShield();
 					break;
@@ -45,12 +56,13 @@ public class TheracTestEnvironment {
 					System.out.println("Invalid command: " + command);
 					break;
 			}
-		}
 
-		try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
-            out.writeObject(therac);
-        } catch (IOException e) {
-            e.printStackTrace();
+            // Serialize the Therac instance
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
+                out.writeObject(therac);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 	}
 }
