@@ -24,7 +24,7 @@ public class TheracTestEnvironment {
         }
 
 		System.out.println("Welcome to the Therac-25 test environment");
-		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam");
+		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n ________________________________");
 
 		// Process command line arguments
 		for (String command : args) {
