@@ -23,7 +23,8 @@ public class TheracTestEnvironment {
             therac = Therac.getInstance();
         }
 
-		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n");
+		System.out.println("Welcome to the Therac-25 test environment");
+		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam");
 
 		// Process command line arguments
 		for (String command : args) {
