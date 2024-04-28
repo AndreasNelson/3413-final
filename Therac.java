@@ -30,20 +30,20 @@ public enum Therac implements Subject, Observer {
 		return safe;
 	}
 
-	public void fireLowBeam() {
+    public void fireLowBeam() {
         if (!isSafe()) {
             System.out.println("Can't fire the low intensity beam when the patient is not safe");
             notifyObservers("fail to fire low intensity beam without monitoring");
             return;
         }
-    
+
         if (!isShielded()) {
-            System.out.println("Firing the low intensity beam");
-            highBeamCount++;
-            if (highBeamCount > 3) {
+            lowBeamCount++;
+            if (lowBeamCount > 3) {
                 safe = false;
                 notifyObservers("low intensity beam fired more than 3 times");
             } else {
+                System.out.println("Firing the low intensity beam");
                 notifyObservers("low intensity beam fired");
             }
         } else {
@@ -52,20 +52,20 @@ public enum Therac implements Subject, Observer {
         }
     }
 
-	public void fireHighBeam() {
+    public void fireHighBeam() {
         if (!isSafe()) {
             System.out.println("Can't fire the high intensity beam when the patient is not safe");
             notifyObservers("fail to fire high intensity beam without monitoring");
             return;
         }
-    
+
         if (isShielded()) {
-            System.out.println("Firing the high intensity beam");
             highBeamCount++;
             if (highBeamCount > 3) {
                 safe = false;
                 notifyObservers("high intensity beam fired more than 3 times");
             } else {
+                System.out.println("Firing the high intensity beam");
                 notifyObservers("high intensity beam fired");
             }
         } else {
