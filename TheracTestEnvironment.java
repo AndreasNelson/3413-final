@@ -1,3 +1,4 @@
+import java.beans.Transient;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -57,6 +58,19 @@ public class TheracTestEnvironment {
 					break;
 			}
 
+		// Testing raising and lowering the shield
+		// Other observers will get a second notification that the event have happened
+		System.out.println(" --- Testing raising and lowering the shield with observer ---");
+		therac.registerObserver(new TheracObserver());
+		therac.lowerShield();
+		therac.raiseShield();
+
+		// Testing firing low beam with shield on, off
+		// Other observers will get a second notification that the event have happened
+		System.out.println(" --- Testing firing low beam with shield on with observer ---");
+		therac.raiseShield();
+		therac.fireLowBeam();
+		
             // Serialize the Therac instance
             try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file))) {
                 out.writeObject(therac);

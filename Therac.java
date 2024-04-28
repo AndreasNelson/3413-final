@@ -1,10 +1,13 @@
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-public enum Therac implements Serializable {
+public enum Therac implements Serializable, Subject, Observer {
 	UNIQUE_INSTANCE;
 
 	private boolean shielded;
 	private boolean monitored;
+	 private List<Observer> observers = new ArrayList<>();
 
 	private Therac() {
 		shielded = true;
@@ -26,20 +29,26 @@ public enum Therac implements Serializable {
 	public void fireLowBeam() {
 		if (!isShielded() && isMonitored()) {
 			System.out.println("Firing the low intensity beam");
+			notifyObservers("low intensity beam fired");
 		} else if (!isShielded() && !isMonitored()) {
 			System.out.println("Can't fire the low intensity beam when the patient is not monitored");
+			notifyObservers("fail to fire low intensity beam without monitoring");
 		} else {
 			System.out.println("Can't fire the low intensity beam when the shield is up");
+			notifyObservers("fail to fire low intensity beam with shield up");
 		}
 	}
 
 	public void fireHighBeam() {
 		if (isShielded() && isMonitored()) {
 			System.out.println("Firing the high intensity beam");
+			notifyObservers("high intensity beam fired");
 		}  else if (isShielded() && !isMonitored()) {
 			System.out.println("Can't fire the high intensity beam when the patient is not monitored");
+			notifyObservers("fail to fire high intensity beam without monitoring");
 		} else {
 			System.out.println("Can't fire the high intensity beam when the shield is down");
+			notifyObservers("fail to fire high intensity beam with shield down");
 		}
 	}
 
@@ -47,8 +56,10 @@ public enum Therac implements Serializable {
 		if (!isShielded()) {
 			shielded = true;
 			System.out.println("Raising the shield");
+			notifyObservers("shield have been raised");
 		} else {
 			System.out.println("Shield is already raised");
+			notifyObservers("fail to raise shield as it already raised");
 		}
 	}
 
@@ -56,8 +67,30 @@ public enum Therac implements Serializable {
 		if (isShielded()) {
 			shielded = false;
 			System.out.println("Lowering the shield");
+			notifyObservers("shield have been lowered");
 		} else {
 			System.out.println("Shield is already lowered");
+			notifyObservers("fail to lower shield as it already lowered");
 		}
 	}
+
+	@Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(String event) {
+        for (Observer observer : observers) {
+            observer.update(event);
+        }
+    }
+
+    public void update(String event) {
+    }
 }
