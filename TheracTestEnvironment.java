@@ -7,18 +7,17 @@ public class TheracTestEnvironment {
 		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n ________________________________\n");
 
 		for (String command : args) {
-            // Deserialize the Therac instance from the file if it exists
-            switch (command) {
-				case "lowerShield":
+            switch (command.toLowerCase()) {
+				case "lowershield":
 					therac.lowerShield();
 					break;
-				case "fireLowBeam":
+				case "firelowbeam":
 					therac.fireLowBeam();
 					break;
-				case "raiseShield":
+				case "raiseshield":
 					therac.raiseShield();
 					break;
-				case "fireHighBeam":
+				case "firehighbeam":
 					therac.fireHighBeam();
 					break;
 				default:
