@@ -43,7 +43,7 @@ public enum Therac implements Subject, Observer {
                 safe = false;
                 notifyObservers("low intensity beam fired more than 3 times");
             } else {
-                System.out.println("Firing the low intensity beam");
+                System.out.println("Firing the low intensity x-ray beam");
                 notifyObservers("low intensity beam fired");
             }
         } else {
@@ -65,7 +65,7 @@ public enum Therac implements Subject, Observer {
                 safe = false;
                 notifyObservers("high intensity beam fired more than 3 times");
             } else {
-                System.out.println("Firing the high intensity beam");
+                System.out.println("Firing the high intensity cancer cell removal beam");
                 notifyObservers("high intensity beam fired");
             }
         } else {

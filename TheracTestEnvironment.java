@@ -7,7 +7,7 @@ public class TheracTestEnvironment {
 
         for (String command : args) {
             if (!therac.isSafe()) {
-                System.out.println("The system is not safe. Aborting command: " + command);
+                System.out.println("The patient is not safe. Aborting command: " + command);
                 break;
             }
 
