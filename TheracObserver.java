@@ -20,7 +20,7 @@ public class TheracObserver implements Observer {
         }
 
         if (!safe) {
-            System.out.println("The system is not safe. High intensity beam fired: " + highBeamCount + " times. Low intensity beam fired: " + lowBeamCount + " times.");
+            System.out.println("The patient is not safe. High intensity beam fired: " + highBeamCount + " times. Low intensity beam fired: " + lowBeamCount + " times.");
         }
     }
 }
