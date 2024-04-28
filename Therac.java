@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum Therac implements Serializable, Subject, Observer {
+public enum Therac implements Subject, Observer {
 	UNIQUE_INSTANCE;
 
 	private boolean shielded;
