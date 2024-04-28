@@ -37,7 +37,7 @@ public enum Therac implements Subject, Observer {
             return;
         }
     
-        if (isShielded()) {
+        if (!isShielded()) {
             System.out.println("Firing the low intensity beam");
             highBeamCount++;
             if (highBeamCount > 3) {
