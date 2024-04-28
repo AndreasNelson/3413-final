@@ -6,13 +6,17 @@ public enum Therac implements Subject, Observer {
 	UNIQUE_INSTANCE;
 
 	private boolean shielded;
-	private boolean monitored;
-	 private List<Observer> observers = new ArrayList<>();
+    private boolean safe;
+    private int lowBeamCount;
+    private int highBeamCount;
+    private List<Observer> observers = new ArrayList<>();
 
 	private Therac() {
-		shielded = true;
-		monitored = true; // observer gets hooked up to monitored boolean
-	}
+        shielded = true;
+        safe = true;
+        lowBeamCount = 0;
+        highBeamCount = 0;
+    }
 
 	public static Therac getInstance() {
 		return UNIQUE_INSTANCE;
@@ -22,35 +26,47 @@ public enum Therac implements Subject, Observer {
 		return shielded;
 	}
 
-	public boolean isMonitored() {
-		return monitored;
+	public boolean isSafe() {
+		return safe;
 	}
 
 	public void fireLowBeam() {
-		if (!isShielded() && isMonitored()) {
-			System.out.println("Firing the low intensity beam");
-			notifyObservers("low intensity beam fired");
-		} else if (!isShielded() && !isMonitored()) {
-			System.out.println("Can't fire the low intensity beam when the patient is not monitored");
-			notifyObservers("fail to fire low intensity beam without monitoring");
-		} else {
-			System.out.println("Can't fire the low intensity beam when the shield is up");
-			notifyObservers("fail to fire low intensity beam with shield up");
-		}
-	}
+        if (!isShielded() && isSafe()) {
+            System.out.println("Firing the low intensity beam");
+            lowBeamCount++;
+            if (lowBeamCount > 3) {
+                safe = false;
+                notifyObservers("low intensity beam fired more than 3 times");
+            } else {
+                notifyObservers("low intensity beam fired");
+            }
+        } else if (!isShielded() && !isSafe()) {
+            System.out.println("Can't fire the low intensity beam when the patient is not safe");
+            notifyObservers("fail to fire low intensity beam without monitoring");
+        } else {
+            System.out.println("Can't fire the low intensity beam when the shield is up");
+            notifyObservers("fail to fire low intensity beam with shield up");
+        }
+    }
 
 	public void fireHighBeam() {
-		if (isShielded() && isMonitored()) {
-			System.out.println("Firing the high intensity beam");
-			notifyObservers("high intensity beam fired");
-		}  else if (isShielded() && !isMonitored()) {
-			System.out.println("Can't fire the high intensity beam when the patient is not monitored");
-			notifyObservers("fail to fire high intensity beam without monitoring");
-		} else {
-			System.out.println("Can't fire the high intensity beam when the shield is down");
-			notifyObservers("fail to fire high intensity beam with shield down");
-		}
-	}
+        if (isShielded() && isSafe()) {
+            System.out.println("Firing the high intensity beam");
+            highBeamCount++;
+            if (highBeamCount > 3) {
+                safe = false;
+                notifyObservers("high intensity beam fired more than 3 times");
+            } else {
+                notifyObservers("high intensity beam fired");
+            }
+        }  else if (isShielded() && !isSafe()) {
+            System.out.println("Can't fire the high intensity beam when the patient is not safe");
+            notifyObservers("fail to fire high intensity beam without monitoring");
+        } else {
+            System.out.println("Can't fire the high intensity beam when the shield is down");
+            notifyObservers("fail to fire high intensity beam with shield down");
+        }
+    }
 
 	public void raiseShield() {
 		if (!isShielded()) {
