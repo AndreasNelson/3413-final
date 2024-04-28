@@ -4,7 +4,7 @@ public class TheracTestEnvironment {
         
 
 		System.out.println("Welcome to the Therac-25 test environment");
-		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n ________________________________\n");
+		System.out.println("Commands: lowerShield, fireLowBeam, raiseShield, fireHighBeam\n______________________________________________________________________________\n");
 
 		for (String command : args) {
             switch (command.toLowerCase()) {

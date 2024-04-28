@@ -31,18 +31,21 @@ public enum Therac implements Subject, Observer {
 	}
 
 	public void fireLowBeam() {
-        if (!isShielded() && isSafe()) {
+        if (!isSafe()) {
+            System.out.println("Can't fire the low intensity beam when the patient is not safe");
+            notifyObservers("fail to fire low intensity beam without monitoring");
+            return;
+        }
+    
+        if (isShielded()) {
             System.out.println("Firing the low intensity beam");
-            lowBeamCount++;
-            if (lowBeamCount > 3) {
+            highBeamCount++;
+            if (highBeamCount > 3) {
                 safe = false;
                 notifyObservers("low intensity beam fired more than 3 times");
             } else {
                 notifyObservers("low intensity beam fired");
             }
-        } else if (!isShielded() && !isSafe()) {
-            System.out.println("Can't fire the low intensity beam when the patient is not safe");
-            notifyObservers("fail to fire low intensity beam without monitoring");
         } else {
             System.out.println("Can't fire the low intensity beam when the shield is up");
             notifyObservers("fail to fire low intensity beam with shield up");
@@ -50,7 +53,13 @@ public enum Therac implements Subject, Observer {
     }
 
 	public void fireHighBeam() {
-        if (isShielded() && isSafe()) {
+        if (!isSafe()) {
+            System.out.println("Can't fire the high intensity beam when the patient is not safe");
+            notifyObservers("fail to fire high intensity beam without monitoring");
+            return;
+        }
+    
+        if (isShielded()) {
             System.out.println("Firing the high intensity beam");
             highBeamCount++;
             if (highBeamCount > 3) {
@@ -59,9 +68,6 @@ public enum Therac implements Subject, Observer {
             } else {
                 notifyObservers("high intensity beam fired");
             }
-        }  else if (isShielded() && !isSafe()) {
-            System.out.println("Can't fire the high intensity beam when the patient is not safe");
-            notifyObservers("fail to fire high intensity beam without monitoring");
         } else {
             System.out.println("Can't fire the high intensity beam when the shield is down");
             notifyObservers("fail to fire high intensity beam with shield down");
