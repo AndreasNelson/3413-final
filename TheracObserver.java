@@ -16,7 +16,7 @@ public class TheracObserver implements Observer {
                 safe = false;
                 break;
             default:
-                System.out.println("Received unknown event: " + event);
+                System.out.println(event);
         }
 
         if (!safe) {
