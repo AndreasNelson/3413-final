@@ -59,8 +59,21 @@ public class PresetTests {
         therac4.lowerShield();
         therac4.fireLowBeam();
         therac4.fireHighBeam();
-        
-        // Testing 
 
+        // Testing firing low beam more than 3 times with high beam 1 time
+        Therac therac6 = Therac.getInstance();
+        therac6.reset();
+        therac6.registerObserver(new TheracObserver());
+
+        System.out.println(" --- Testing firing low beam more than 3 times with high beam 1 time with observer ---");
+        therac6.lowerShield(); 
+        therac6.fireLowBeam();
+        therac6.fireLowBeam();
+        therac6.fireLowBeam();
+        therac6.raiseShield();
+        therac6.fireHighBeam();
+        therac6.fireHighBeam();
+        therac6.fireHighBeam();
+        therac6.fireHighBeam();
     }
 }
