@@ -61,7 +61,7 @@ public enum Therac implements Subject, Observer {
 
         if (isShielded()) {
             highBeamCount++;
-            if (highBeamCount > 3) {
+            if (highBeamCount > 4) {
                 safe = false;
                 notifyObservers("high intensity beam fired more than 3 times");
             } else {
