@@ -29,6 +29,14 @@ public enum Therac implements Subject, Observer {
 	public boolean isSafe() {
 		return safe;
 	}
+    
+    public void reset() {
+        shielded = true;
+        safe = true;
+        lowBeamCount = 0;
+        highBeamCount = 0;
+        observers.clear();
+    }
 
     public void fireLowBeam() {
         if (!isSafe()) {
@@ -61,7 +69,7 @@ public enum Therac implements Subject, Observer {
 
         if (isShielded()) {
             highBeamCount++;
-            if (highBeamCount > 4) {
+            if (highBeamCount > 3) {
                 safe = false;
                 notifyObservers("high intensity beam fired more than 3 times");
             } else {

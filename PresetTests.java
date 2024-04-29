@@ -17,6 +17,8 @@ public class PresetTests {
 
         // Testing firing high beam with shield on, off
         Therac therac2 = Therac.getInstance();
+        therac2.reset();
+        therac2.registerObserver(new TheracObserver());
 
         System.out.println(" --- Testing firing high beam with shield on with observer ---");
         therac2.raiseShield();
@@ -26,6 +28,8 @@ public class PresetTests {
 
         // Testing firing high beam more than 3 times
         Therac therac3 = Therac.getInstance();
+        therac3.reset();
+        therac3.registerObserver(new TheracObserver());
 
         System.out.println(" --- Testing firing high beam more than 3 times with observer ---");
         therac3.raiseShield();
@@ -34,7 +38,29 @@ public class PresetTests {
         therac3.fireHighBeam();
         therac3.fireHighBeam();
         
+        // Testing firing low beam more than 3 times
+        Therac therac5 = Therac.getInstance();
+        therac5.reset();
+        therac5.registerObserver(new TheracObserver());
 
+        System.out.println(" --- Testing firing low beam more than 3 times with observer ---");
+        therac5.lowerShield();
+        therac5.fireLowBeam();
+        therac5.fireLowBeam();
+        therac5.fireLowBeam();
+        therac5.fireLowBeam();
+
+        // Testing can not fire low, high beam when shield is down
+        Therac therac4 = Therac.getInstance();
+        therac4.reset();
+        therac4.registerObserver(new TheracObserver());
+
+        System.out.println(" --- Testing firing low, high beam with shield off with observer ---");
+        therac4.lowerShield();
+        therac4.fireLowBeam();
+        therac4.fireHighBeam();
+        
+        // Testing 
 
     }
 }
